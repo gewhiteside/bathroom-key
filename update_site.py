@@ -57,6 +57,10 @@ def write(soup):
 
 def update_span(key, state, soup):
     key_id = key + "-key"
-    key_span = soup.find(id=key_id)
+    key_state_id = key + "-key-state"
+
+    key_tr = soup.find(id=key_id)
+    key_span = soup.find(id=key_state_id)
+
+    key_tr['class'] = state
     key_span.string = state
-    key_span['class'] = state
