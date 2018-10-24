@@ -3,15 +3,14 @@
 
 from bs4 import BeautifulSoup
 
-index = "/home/pi/bathroom-key/index.html"
+index = "/home/pi/bathroom-key/html/index.html"
 right_key_avail = True
 left_key_avail  = True
 
 def toggle_key(key):
-    soup = read()
-
-    # TODO(whiteside): use only one global keyword for both variables
     global right_key_avail, left_key_avail
+
+    soup = read()
 
     if key == "right":
         key_avail = right_key_avail
@@ -25,13 +24,13 @@ def toggle_key(key):
     else:
         state = "Available"
 
-    update_span(key_id, state, soup)
+    update_html(key_id, state, soup)
     write(soup)
 
 def set_key(key, key_avail):
-    soup = read()
-
     global right_key_avail, left_key_avail
+
+    soup = read()
 
     if key == "right":
         right_key_avail = key_avail
@@ -43,7 +42,7 @@ def set_key(key, key_avail):
     else:
         state = "Unavailable"
 
-    update_span(key, state, soup)
+    update_html(key, state, soup)
     write(soup)
 
 def read():
@@ -55,7 +54,7 @@ def write(soup):
     with open(index, "w") as fp:
         fp.write(unicode(soup))
 
-def update_span(key, state, soup):
+def update_html(key, state, soup):
     key_id = key + "-key"
     key_state_id = key + "-key-state"
 

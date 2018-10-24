@@ -7,10 +7,10 @@ import time
 import update_site
 
 # GPIO numbers
-RTRIG = 23
-RECHO = 24
-LTRIG = 17
-LECHO = 27
+LTRIG = 23
+LECHO = 24
+RTRIG = 17
+RECHO = 27
 
 continue_reading = True
 

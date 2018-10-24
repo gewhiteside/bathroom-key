@@ -1,0 +1,5 @@
+#!/bin/bash
+# Starts the bathroom key sensors
+# Can add a soft link to your bin with ln -s path/to/this-file ~/bin
+
+sudo ~/bathroom-key/key_sensor.py > sensor.log 2>&1 &
