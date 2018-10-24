@@ -30,13 +30,15 @@ def setup():
 def end_read(signal, frame):
     global continue_reading
 
-    print "ending read loop"
+    print "[", time.ctime(), "]", "[END] Ending read loop"
     continue_reading = False
     GPIO.cleanup()
 
 def read_loop():
     global RTRIG, RECHO, LTRIG, LECHO
     global continue_reading
+
+    print "[", time.ctime(), "]", "[START] Starting read loop"
 
     right = True
     while (continue_reading):
@@ -51,14 +53,13 @@ def read_loop():
         right = not right
 
         GPIO.output(TRIG, False)
-        print "Waiting for sensor to settle"
         time.sleep(2)
 
         GPIO.output(TRIG, True)
         time.sleep(0.00001)
         GPIO.output(TRIG, False)
 
-        print "Checking for " + key + " key"
+        print "[", time.ctime(), "]", "[CHECK] Checking for " + key + " key"
         while GPIO.input(ECHO) == 0:
             pulse_start = time.time()
 
@@ -71,13 +72,12 @@ def read_loop():
 
         if distance < 10:
             key_avail = True
-            print "Key available"
+            print "[", time.ctime(), "]", "[RESULT] Key available"
         else:
             key_avail = False
-            print "Key missing"
+            print "[", time.ctime(), "]", "[RESULT] Key missing"
 
         update_site.set_key(key, key_avail)
 
-if __name__ == "__main__":
-    setup()
-    read_loop()
+setup()
+read_loop()

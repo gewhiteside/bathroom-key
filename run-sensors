@@ -1,5 +1,10 @@
 #!/bin/bash
 # Starts the bathroom key sensors
-# Can add a soft link to your bin with ln -s path/to/this-file ~/bin
+# Can add a soft link to your bin with:
+#   $ ln -s path/to/this-file ~/bin
+# Can add this as a cronjob on reboot with:
+#   $ crontab -e
+#   reboot /path/to/this-file
 
-sudo ~/bathroom-key/key_sensor.py > sensor.log 2>&1 &
+ROOT=/home/pi/bathroom-key
+sudo $ROOT/key_sensor.py &> $ROOT/sensor.log &
