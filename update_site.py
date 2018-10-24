@@ -11,8 +11,7 @@ def toggle_key(key):
     soup = read()
 
     # TODO(whiteside): use only one global keyword for both variables
-    global right_key_avail
-    global left_key_avail
+    global right_key_avail, left_key_avail
 
     if key == "right":
         key_avail = right_key_avail
@@ -32,8 +31,7 @@ def toggle_key(key):
 def set_key(key, key_avail):
     soup = read()
 
-    global right_key_avail
-    global left_key_avail
+    global right_key_avail, left_key_avail
 
     if key == "right":
         right_key_avail = key_avail
@@ -61,3 +59,4 @@ def update_span(key, state, soup):
     key_id = key + "-key"
     key_span = soup.find(id=key_id)
     key_span.string = state
+    key_span['class'] = state

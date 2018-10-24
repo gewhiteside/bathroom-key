@@ -24,12 +24,13 @@ def setup():
     GPIO.setup(LTRIG,GPIO.OUT)
     GPIO.setup(LECHO,GPIO.IN)
 
-    # hook SIGINT for cleanup when the script is aborted
     signal.signal(signal.SIGINT, end_read)
+    signal.signal(signal.SIGTERM, end_read)
 
 def end_read(signal, frame):
     global continue_reading
-    print "Ctrl+C captured, ending read loop"
+
+    print "ending read loop"
     continue_reading = False
     GPIO.cleanup()
 

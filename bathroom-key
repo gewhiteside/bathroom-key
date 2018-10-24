@@ -4,8 +4,11 @@
 
 ROOT=~/bathroom-key
 
-cd $ROOT
-sudo ./web_server.py &
-sudo ./key_sensor.py
+# TODO(whiteside): implement a better way to stop and start both of these
+# processes
 
-# to force cleanup - sudo killall python
+cd $ROOT
+sudo ./web_server.py > server.log 2>&1 &
+sudo ./key_sensor.py > sensor.log 2>&1 &
+
+# to force cleanup - sudo killall python -sSIGKILL
