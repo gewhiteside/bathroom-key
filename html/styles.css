@@ -10,14 +10,17 @@ table {
     width: 100%;
     font-size: 5em;
     border-collapse: collapse;
+    table-layout:fixed;
 }
 
 .name {
-    text-align: right;
+    vertical-align: bottom;
+    text-align: center;
 }
 
-.status {
-    text-align: left;
+.state {
+    vertical-align: top;
+    text-align: center;
 }
 
 .Available {

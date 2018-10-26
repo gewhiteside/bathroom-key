@@ -55,11 +55,12 @@ def write(soup):
         fp.write(unicode(soup))
 
 def update_html(key, state, soup):
-    key_id = key + "-key"
+    key_name_id = key + "-key-name"
     key_state_id = key + "-key-state"
 
-    key_tr = soup.find(id=key_id)
-    key_span = soup.find(id=key_state_id)
+    key_name = soup.find(id=key_name_id)
+    key_state = soup.find(id=key_state_id)
 
-    key_tr['class'] = state
-    key_span.string = state
+    key_name['class'] = state
+    key_state['class'] = state
+    key_state.string = state
