@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # Checks the ultrasonic proximity sensors and updates the website
+# Used the following guide:
+# www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi
 
 import RPi.GPIO as GPIO
 import signal
