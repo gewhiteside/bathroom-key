@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # API to update the bathroom key webpage
 
-from bs4 import BeautifulSoup
+import re
 
-index = "/home/pi/bathroom-key/html/index.html"
+index = "/home/pi/bathroom-key-dev/html/index.html"
 right_key_avail = True
 left_key_avail  = True
 
+# background colors
+both_color = "#3ddb40"
+one_color = "#f4be41"
+neither_color = "#f45042"
+
 def toggle_key(key):
     global right_key_avail, left_key_avail
-
-    soup = read()
 
     if key == "right":
         key_avail = right_key_avail
@@ -24,13 +27,10 @@ def toggle_key(key):
     else:
         state = "Available"
 
-    update_html(key_id, state, soup)
-    write(soup)
+    update_html()
 
 def set_key(key, key_avail):
     global right_key_avail, left_key_avail
-
-    soup = read()
 
     if key == "right":
         right_key_avail = key_avail
@@ -42,25 +42,25 @@ def set_key(key, key_avail):
     else:
         state = "Unavailable"
 
-    update_html(key, state, soup)
-    write(soup)
+    update_html()
 
-def read():
-    with open(index) as fp:
-        soup = BeautifulSoup(fp)
-    return soup
+def update_html():
+    if (right_key_avail and left_key_avail):
+        color = both_color
+    elif (right_key_avail or left_key_avail):
+        color = one_color
+    else:
+        color = neither_color
+    set_bg_color(color)
 
-def write(soup):
-    with open(index, "w") as fp:
-        fp.write(unicode(soup))
+def set_bg_color(color):
+    global index
 
-def update_html(key, state, soup):
-    key_name_id = key + "-key-name"
-    key_state_id = key + "-key-state"
+    with open(index, "r") as fd:
+        read_data = fd.read()
+        write_data = re.sub("bgcolor=\"#[a-z0-9]{6}\"",
+                            "bgcolor=\"" + color + "\"",
+                            read_data)
 
-    key_name = soup.find(id=key_name_id)
-    key_state = soup.find(id=key_state_id)
-
-    key_name['class'] = state
-    key_state['class'] = state
-    key_state.string = state
+    with open(index, "w") as fd:
+        fd.write(write_data)
