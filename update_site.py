@@ -3,7 +3,7 @@
 
 import re
 
-index = "/home/pi/bathroom-key-dev/html/index.html"
+index = "/home/pi/bathroom-key/html/index.html"
 right_key_avail = True
 left_key_avail  = True
 
